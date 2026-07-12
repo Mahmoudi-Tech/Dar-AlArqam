@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دار الأرقم - تحميل التطبيق</title>
+    <!-- خط عربي حديث -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. المتغيرات والألوان الأساسية */
+        :root {
+            --primary-dark: #052e1c;
+            --primary-green: #0D4A31;
+            --gold: #D4AF37;
+            --gold-light: #f1e1b0;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--primary-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* 2. الحاوية الرئيسية (Glassmorphism) */
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-container::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* 3. القسم الأيسر: المحتوى */
+        .content-section {
+            flex: 1;
+            z-index: 10;
+            text-align: right;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .logo-area img {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .logo-area h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+        .logo-area h1 span { color: var(--gold); }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 450px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .feat-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feat-badge span { color: var(--gold); }
+
+        /* 4. قسم الأزرار (بدون إيميلات) */
+        .buttons-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 25px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-download:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        .btn-download svg { width: 28px; height: 28px; fill: currentColor; }
+
+        /* زر الأندرويد (فعال) */
+        .btn-android {
+            background: var(--white);
+            color: var(--primary-dark);
+        }
+        .btn-android:hover {
+            background: var(--gold);
+            color: var(--primary-dark);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* زر "قريباً" (Coming Soon iOS) */
+        .btn-ios-soon {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            cursor: default; /* غير قابل للنقر */
+            opacity: 0.9;
+        }
+        .btn-ios-soon:hover {
+            transform: translateY(0) scale(1); /* لا يتفاعل عند التحويم */
+            box-shadow: none;
+        }
+
+        /* 5. القسم الأيمن: معاينة الهاتف */
+        .mockup-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .phone-frame {
+            width: 320px;
+            height: 600px;
+            background: #111;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,255,255,0.1);
+            position: relative;
+            border: 2px solid #333;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 32px; /* نفس انحناء الهاتف */
+            background: var(--primary-green);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* ***** التعديل الأهم: جعل صورة التطبيق تملأ الشاشة ***** */
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* هذا يجعل الصورة تتكيف مع الشاشة دون تشويه */
+            display: block;
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #111;
+            border-radius: 0 0 20px 20px;
+            z-index: 20;
+        }
+
+        /* 6. التجاوب للجوال */
+        @media (max-width: 900px) {
+            .hero-container {
+                flex-direction: column-reverse;
+                padding: 30px 20px;
+                gap: 30px;
+                border-radius: 25px;
+            }
+            .content-section { text-align: center; }
+            .logo-area { justify-content: center; }
+            .logo-area h1 { font-size: 2.5rem; }
+            .description { max-width: 100%; margin: 0 auto 25px auto; }
+            .features-list { justify-content: center; }
+            .buttons-row { justify-content: center; }
+            .phone-frame { width: 250px; height: 480px; }
+            .phone-screen { border-radius: 27px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+        
+        <!-- القسم الأيسر: المحتوى -->
+        <div class="content-section">
+            <div class="logo-area">
+                <!-- ضع مسار اللوجو هنا -->
+                <img src="logo.png" alt="Dar Al-Arqam Logo">
+                <h1>دار <span>الأرقم</span></h1>
+            </div>
+            
+            <p class="subtitle">منارة العلم الشرعي</p>
+            <p class="description">
+                تطبيق إسلامي شامل يضم مواقيت الصلاة، الأذكار اليومية، مكتبة ضخمة من الكتب، الدروس الصوتية، والفتاوى الشرعية.
+            </p>
+
+            <div class="features-list">
+                <div class="feat-badge"><span>✓</span> مواقيت دقيقة</div>
+                <div class="feat-badge"><span>✓</span> أذكار يومية</div>
+                <div class="feat-badge"><span>✓</span> قرآن وتفسير</div>
+                <div class="feat-badge"><span>✓</span> مكتبة شاملة</div>
+            </div>
+
+            <div class="buttons-row">
+                <!-- زر أندرويد (فعال) -->
+                <a href="YOUR_ANDROID_LINK" class="btn-download btn-android" target="_blank">
+                    <svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1145-.1982.0454-.4534-.1533-.5678-.1982-.1145-.4534-.0454-.5678.1533l-2.0223 3.5028c-1.4287-.7925-3.0725-1.2488-4.8225-1.2488-1.75 0-3.3938.4563-4.8225 1.2488L5.4707 5.4474c-.1145-.1987-.3696-.2678-.5678-.1533-.1982.1145-.2678.3696-.1533.5678l1.9973 3.4592C2.6269 11.4431.4955 15.5512.9913 19.6576c.0177.1489.1434.2632.2939.2632h21.4296c.1505 0 .2762-.1143.2939-.2632.4959-4.1064-1.6355-8.2145-4.6765-10.3363z"/></svg>
+                    جوجل بلاي
+                </a>
+                
+                <!-- زر آيفون (قريباً - Coming Soon) -->
+                <div class="btn-download btn-ios-soon">
+                    <svg viewBox="0 0 24 24"><path d="M17.257 12.845c.037 2.353 2.066 3.135 2.089 3.147-.017.057-.325 1.11-1.071 2.204-.65.942-1.33 1.881-2.397 1.899-1.048.019-1.386-.622-2.586-.622-1.205 0-1.583.622-2.582.622-1.049.019-1.786-.967-2.438-1.916-1.751-2.538-3.041-6.864-1.297-9.854.824-1.415 2.294-2.311 3.868-2.311 1.209 0 2.345.81 3.08.81.735 0 2.11-.999 3.546-.999 1.233 0 2.512.487 3.312 1.369-2.133 1.296-1.782 3.972.296 4.827-.209.715-.623 1.389-1.12 1.389zM15.048 5.351c.589-.714.986-1.705.878-2.692-.85.033-1.879.567-2.496 1.282-.548.634-1.025 1.648-.897 2.619.947.077 1.924-.494 2.515-1.209z"/></svg>
+                    قريباً على آب ستور
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الأيمن: صورة التطبيق (تم تحديثها) -->
+        <div class="mockup-section">
+            <div class="phone-frame">
+                <div class="notch"></div>
+                <div class="phone-screen">
+                    <!-- 👇 هنا نضع صورة التطبيق التي أرسلتها -->
+                    <img src="APP_SCREENSHOT_URL_HERE.jpg" alt="واجهة تطبيق دار الأرقم">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
